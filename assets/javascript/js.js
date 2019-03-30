@@ -1,14 +1,14 @@
 
 // starting arrays
-    var food = [ "pizza", "hotdog", "hamburger", "fries"];
+    var foods = [ "pizza", "hotdog", "hamburger", "fries"];
 
 // funtion for displaying array
     function renderButtons() {
 
-    $("#buttons-veiw").empty();
+    $("#buttons-view").empty();
 
     // loops through the array of food
-    for (var i = 0; i < food.length; i++) {
+    for (var i = 0; i < foods.length; i++) {
 
         //generates buttons for the arrays
         var b = $("<button>");
@@ -22,4 +22,48 @@
         $("#buttons-view").append(b);
 
     };
+    }
+
+    // display info function re-render
+    function displayfoodInfo() {
+
+        var food = $(this).attr("data-name");
+
+        var APIkey = "KyotFbisTB1gIptI4RfkrWU2s2T85Kor";
+        
+        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + food + "&api_key=" + APIkey + "&limit=10";
+
+        // AJAX to call for info
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function(response) {
+            console.log(queryURL);
+
+            // store data from AJAX
+            var results = response.data;
+
+            for (var i = 0; i < results.length; i++) {
+
+            // creating/ storing an div
+                var foodDiv = $("<div>");
+
+                var rating = $("<p>").text("Rating: " + results[i].rating).addClass("rating");
+                var title = $("<p>").text("Title: " + results[i].title).addClass("title");
+
+            // creating/ storing an image
+            var foodImage = $("<img>");
+
+            foodImage.attr("scr", results[i].images.original_still.url);
+
+            foodDiv.append(title, rating, foodImage);
+
+            $("#food-view").prepend(foodDiv);
+            }
+        });
     };
+
+    // adding click event
+    $(document).on("click", ".food-btn", displayfoodInfo);
+
+    renderButtons();

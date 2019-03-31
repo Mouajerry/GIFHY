@@ -63,7 +63,22 @@
             $("#food-view").prepend(foodDiv);
             }
         });
-    };
+    }
+
+      // This function handles events where one button is clicked
+      $("#add-food").on("click", function(event) {
+        event.preventDefault();
+
+        // This line grabs the input from the textbox
+        var food = $("#food-input").val().trim();
+
+        // Adding the food from the textbox to our array
+        foods.push(food);
+        console.log(foods);
+
+        // Calling renderButtons which handles the processing of our food array
+        renderButtons();
+      });
 
     // adding click event
     $(document).on("click", ".food-btn", displayfoodInfo);

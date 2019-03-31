@@ -2,6 +2,7 @@
 // starting arrays
     var foods = [ "pizza", "hotdog", "hamburger", "fries"];
 
+ console.log(foods);
 // funtion for displaying array
     function renderButtons() {
 
@@ -31,13 +32,14 @@
 
         var APIkey = "KyotFbisTB1gIptI4RfkrWU2s2T85Kor";
         
-        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + food + "&api_key=" + APIkey + "&limit=10";
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + food + "&api_key=" + APIkey + "&limit=10";
 
         // AJAX to call for info
         $.ajax({
             url: queryURL,
             method: "GET"
         }).then(function(response) {
+
             console.log(queryURL);
 
             // store data from AJAX
@@ -54,7 +56,7 @@
             // creating/ storing an image
             var foodImage = $("<img>");
 
-            foodImage.attr("scr", results[i].images.original_still.url);
+            foodImage.attr("src", results[i].images.fixed_height.url);
 
             foodDiv.append(title, rating, foodImage);
 

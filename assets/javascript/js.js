@@ -62,7 +62,7 @@
              // animated image
             foodImage.attr("data-animate", results[i].images.fixed_height.url);
             // set the image state
-            foodImage.attr("data-state", "still"); 
+            foodImage.attr("data-state", "animate"); 
 
             foodImage.addClass("image");
 
@@ -90,14 +90,14 @@
 
       $(document).on("click", ".image", function() {
         // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
-        var state = $("#food-view").attr("data-state");
+        var state = $(this).attr("data-state");
         // If the clicked image's state is still, update its src attribute to what its data-animate value is.
         // Then, set the image's data-state to animate
         if (state === "still") {
-          $(this).attr("src", $(this).data("data-animate"));
+          $(this).attr("src", $(this).attr("data-animate"));
           $(this).attr("data-state", "animate");
         } else {
-          $(this).attr("src", $(this).data("still"));
+          $(this).attr("src", $(this).attr("data-still"));
           $(this).attr("data-state", "still");
           
         }

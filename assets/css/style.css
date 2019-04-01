@@ -6,5 +6,12 @@ input {
 }
 
 body {
-    background-color: aqua;
+  background: url('../images/food.jpg') no-repeat;
+  font-family: 'Karla', sans-serif;
+  color: red;
+  background-attachment: fixed;
+}
+
+.jumbotron {
+  background-image: url("../images/sub.png");
 }

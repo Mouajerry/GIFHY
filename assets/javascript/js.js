@@ -57,10 +57,18 @@
             var foodImage = $("<img>");
 
             foodImage.attr("src", results[i].images.fixed_height.url);
+             // still image
+             foodImage.attr("data-still", results[i].images.fixed_height_still.url);
+             // animated image
+            foodImage.attr("data-animate", results[i].images.fixed_height.url);
+            // set the image state
+            foodImage.attr("data-state", "still"); 
+
+            foodImage.addClass("image");
 
             foodDiv.append(title, rating, foodImage);
 
-            $("#food-view").prepend(foodDiv);
+            $("#food-view").prepend(foodDiv); 
             }
         });
     }
@@ -78,6 +86,21 @@
 
         // Calling renderButtons which handles the processing of our food array
         renderButtons();
+      });
+
+      $(document).on("click", ".image", function() {
+        // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+        var state = $("#food-view").attr("data-state");
+        // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+        // Then, set the image's data-state to animate
+        if (state === "still") {
+          $(this).attr("src", $(this).data("data-animate"));
+          $(this).attr("data-state", "animate");
+        } else {
+          $(this).attr("src", $(this).data("still"));
+          $(this).attr("data-state", "still");
+          
+        }
       });
 
     // adding click event
